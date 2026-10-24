@@ -1,9 +1,9 @@
 import React from 'react';
-import { ShieldCheck, ArrowUpRight } from 'lucide-react';
+import { ShieldCheck, ArrowUpRight, QrCode } from 'lucide-react';
 
 const CURRENT_YEAR = new Date().getFullYear();
 
-export default function Footer({ setCurrentRole }) {
+export default function Footer({ setCurrentRole, onOpenDonation }) {
   return (
     <footer className="bg-forest-950 text-white border-t border-forest-800/80 pt-16 pb-12 mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,6 +34,18 @@ export default function Footer({ setCurrentRole }) {
             <div className="flex items-center gap-2 text-xs text-emerald-400 font-medium">
               <ShieldCheck className="w-4 h-4 text-brand-orange" />
               <span>FSSAI Safe Food Share Partner</span>
+            </div>
+
+            {/* Donation & Maintenance Fund Quick Link */}
+            <div className="pt-1">
+              <button
+                type="button"
+                onClick={onOpenDonation}
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-forest-900/90 hover:bg-forest-800 border border-emerald-500/30 text-emerald-300 text-xs font-bold transition-all shadow-sm hover:border-emerald-400"
+              >
+                <QrCode className="w-3.5 h-3.5 text-brand-orange" />
+                <span>Support Platform Fund (QR)</span>
+              </button>
             </div>
           </div>
 

@@ -11,7 +11,8 @@ import {
   Heart,
   MessageSquareHeart,
   Menu,
-  X
+  X,
+  QrCode
 } from 'lucide-react';
 
 const NAV_LINKS = [
@@ -28,7 +29,8 @@ export default function Navbar({
   currentUser,
   onOpenAuth,
   onSignOut,
-  unreadAlerts = 1
+  unreadAlerts = 1,
+  onOpenDonation
 }) {
   const [showRoleMenu,   setShowRoleMenu]   = useState(false);
   const [showAlertsMenu, setShowAlertsMenu] = useState(false);
@@ -152,14 +154,15 @@ export default function Navbar({
               )}
             </div>
 
-            {/* Backend status indicator */}
-            <div
-              className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[10px] font-semibold text-emerald-700"
-              title="Supabase PostgreSQL active and synchronized"
+            {/* Support Platform & Security QR Button */}
+            <button
+              onClick={onOpenDonation}
+              className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-[11px] font-bold text-forest-900 transition-all shadow-sm hover:shadow active:scale-95"
+              title="Donate to support FeedAll platform hosting, server security & database"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="font-mono tracking-wide">Supabase Live</span>
-            </div>
+              <QrCode className="w-3.5 h-3.5 text-forest-700" />
+              <span>Support Us (QR)</span>
+            </button>
 
             {/* Alerts */}
             <div className="relative">
@@ -234,7 +237,7 @@ export default function Navbar({
                   Sign In
                 </button>
                 <button
-                  onClick={() => scrollToSection('donation-programs')}
+                  onClick={() => onOpenDonation ? onOpenDonation() : scrollToSection('donation-programs')}
                   className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-brand-orange hover:bg-orange-600 text-white text-xs font-bold shadow-md shadow-orange-500/20 transition-all"
                 >
                   <Heart className="w-3.5 h-3.5 fill-white" />
@@ -272,6 +275,17 @@ export default function Navbar({
                 {link.label}
               </button>
             ))}
+
+            {/* Mobile Support QR Button */}
+            <div className="pt-2">
+              <button
+                onClick={() => { onOpenDonation?.(); setMobileOpen(false); }}
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-50 border border-emerald-300 text-forest-900 text-xs font-bold shadow-sm"
+              >
+                <QrCode className="w-4 h-4 text-forest-700" />
+                Support Platform & Security (Scan QR)
+              </button>
+            </div>
 
             <div className="pt-3 border-t border-slate-100 space-y-1">
               {roles.map((role) => (

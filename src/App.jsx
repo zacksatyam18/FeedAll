@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import NotificationToast from './components/NotificationToast';
 import AuthModal from './components/AuthModal';
+import AdminDonationModal from './components/AdminDonationModal';
 
 import LandingView from './views/LandingView';
 import ProviderDashboard from './views/ProviderDashboard';
@@ -31,6 +32,9 @@ export default function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalTab, setAuthModalTab] = useState('signin');
   const [authModalRole, setAuthModalRole] = useState('provider');
+
+  // Platform Maintenance & Security Donation Modal state (UPI / QR Code)
+  const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
 
   // Data stores
   const [providerStats, setProviderStats] = useState(initialProviderStats);
@@ -140,6 +144,7 @@ export default function App() {
         onOpenAuth={handleOpenAuth}
         onSignOut={handleSignOut}
         unreadAlerts={ngoMatches.length > 0 ? 1 : 0}
+        onOpenDonation={() => setIsDonationModalOpen(true)}
       />
 
       {/* Main Content Area */}
@@ -153,6 +158,7 @@ export default function App() {
             showNotification={showNotification}
             adminStats={adminStats}
             ngoMatches={ngoMatches}
+            onOpenDonation={() => setIsDonationModalOpen(true)}
           />
         )}
 
@@ -189,7 +195,17 @@ export default function App() {
       </main>
 
       {/* Enterprise Global Footer */}
-      <Footer setCurrentRole={setCurrentRole} />
+      <Footer 
+        setCurrentRole={setCurrentRole} 
+        onOpenDonation={() => setIsDonationModalOpen(true)}
+      />
+
+      {/* Platform Maintenance & Security Fund Donation Modal (QR Code) */}
+      <AdminDonationModal 
+        isOpen={isDonationModalOpen}
+        onClose={() => setIsDonationModalOpen(false)}
+        showNotification={showNotification}
+      />
 
       {/* Authentication Modal (Sign In / Register) */}
       <AuthModal 

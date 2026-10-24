@@ -16,7 +16,8 @@ import {
   CheckCircle2,
   Sparkles,
   Users,
-  Radio
+  Radio,
+  QrCode
 } from 'lucide-react';
 import FeedbackSection from '../components/FeedbackSection';
 import HeroSlider from '../components/HeroSlider';
@@ -214,7 +215,8 @@ export default function LandingView({
   setFeedbacks,
   showNotification,
   adminStats = {},
-  ngoMatches = []
+  ngoMatches = [],
+  onOpenDonation
 }) {
   /* ── Impact figures ── */
   const foodRescuedKg = adminStats.totalWasteSavedKg        ?? 8850;
@@ -540,6 +542,48 @@ export default function LandingView({
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Admin Platform Maintenance & Security Fund Banner */}
+          <div className="mt-12 rounded-3xl bg-gradient-to-br from-forest-950 via-forest-900 to-emerald-950 text-white p-7 sm:p-10 shadow-2xl border border-emerald-500/30 flex flex-col lg:flex-row items-center justify-between gap-8">
+            <div className="space-y-3.5 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-400/20 border border-emerald-400/30 text-emerald-300 text-xs font-semibold">
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                <span>Admin Platform Maintenance &amp; Security Fund</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-extrabold font-heading text-white tracking-tight">
+                Help Admins Maintain Platform Security &amp; 24/7 Hosting
+              </h3>
+              <p className="text-xs sm:text-sm text-emerald-100/90 leading-relaxed">
+                Whether you are an individual donor, an NGO, or a company, your contributions empower us to maintain continuous 24/7 server infrastructure, encrypted database storage, continuous SSL security, and real-time automated FSSAI verification.
+              </p>
+              <div className="flex flex-wrap items-center gap-4 pt-1 text-xs text-emerald-200">
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  Instant UPI QR Scan
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-amber-400" />
+                  Corporate / CSR Invoicing
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-cyan-400" />
+                  100% Transparent Cloud Allocation
+                </span>
+              </div>
+            </div>
+
+            <div className="flex-shrink-0 flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
+              <button
+                type="button"
+                onClick={onOpenDonation}
+                className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-brand-orange hover:bg-orange-600 text-white font-bold text-sm shadow-xl shadow-orange-500/30 transition-all flex items-center justify-center gap-2.5 group active:scale-95"
+              >
+                <QrCode className="w-5 h-5 group-hover:rotate-6 transition-transform" />
+                <span>Scan QR Code to Donate</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         </div>
       </section>
